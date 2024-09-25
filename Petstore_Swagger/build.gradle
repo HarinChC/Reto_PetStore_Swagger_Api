@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.8.1' // Añadir el plugin de Allure
+}
+
+allure {
+    version = '2.8.1'
+    autoconfigure = true
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+dependencies {
+   // testImplementation 'com.intuit.karate:karate-junit5:1.4.1'
+
+    testImplementation 'com.intuit.karate:karate-junit5:1.3.1'
+    //implementation 'net.masterthought:cucumber-reporting:5.8.2'
+
+
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    systemProperties System.getProperties()
+    systemProperty "karate.env", System.getProperty("karate.env")
+    outputs.upToDateWhen { false }
+
+}
